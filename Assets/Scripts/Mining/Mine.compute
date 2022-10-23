@@ -1,0 +1,42 @@
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+static const int numThreads = 8;
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWStructuredBuffer<float4> points;
+
+uint numPointsPerAxis;
+float MetersBetweenPoints;
+float3 offset;
+float3 center;
+float radius;
+float mineStrength;
+
+float3 mineLocation; //LOCAL location
+
+
+
+int indexFromCoord(uint x, uint y, uint z) {
+    return z * numPointsPerAxis * numPointsPerAxis + y * numPointsPerAxis + x;
+}
+
+
+[numthreads(numThreads, numThreads, numThreads)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= numPointsPerAxis || id.y >= numPointsPerAxis || id.z >= numPointsPerAxis) {
+        return; 
+    }
+
+    float3 pos = id * MetersBetweenPoints;
+    
+    float dist = length(pos - mineLocation);
+    if (dist > radius) return;
+
+    float strength = 1 - dist / radius;
+    
+    int index = indexFromCoord(id.x, id.y, id.z);
+    points[index].w -= strength* mineStrength;
+}

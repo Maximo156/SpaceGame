@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 41f973d653368f9408b120409d4960b1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sphericalFogMaterial: {fileID: 2100000, guid: 9e574de54945a18409aafe360fb78c19, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
