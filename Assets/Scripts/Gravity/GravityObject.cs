@@ -40,6 +40,13 @@ public class GravityObject : MonoBehaviour
         }
     }
 
+    public void OverrideVelocity(Vector3 vel)
+    {
+        if (!exerter)
+        {
+            rb.velocity = vel;
+        }
+    }
 
     public void scaleMass(float min)
     {
@@ -61,7 +68,7 @@ public class GravityObject : MonoBehaviour
                 Vector3 dir = (obj.rb.position - rb.position).normalized;
 
                 
-                if (Orient && Mathf.Pow(sqrDist, 0.5f) - obj.radius < 100)
+                if (Orient && Mathf.Pow(sqrDist, 0.5f) - obj.radius < 100 && !rb.isKinematic)
                 {
                     transform.rotation = Quaternion.LookRotation(-dir, -transform.forward);
                     transform.Rotate(Vector3.right, 90f);

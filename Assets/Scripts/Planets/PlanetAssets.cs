@@ -66,10 +66,17 @@ public class PlanetAssets : MonoBehaviour
 
             Ray ray = new Ray(points[i].position, transform.position - points[i].position);
 
-            Physics.Raycast(ray, out RaycastHit info, radius, Physics.AllLayers);
-            
-            points[i].position = info.point;
-            points[i].parent = info.collider.transform;
+            Physics.Raycast(ray, out RaycastHit info, radius);
+
+            if (info.collider.tag == "Terrain")
+            {
+                points[i].position = info.point;
+                points[i].parent = info.collider.transform;
+            }
+            else
+            {
+                i--;
+            }
         }
     }
 

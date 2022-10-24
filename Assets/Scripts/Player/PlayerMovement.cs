@@ -9,7 +9,7 @@ public class PlayerMovement : Stick
     public float ShiftMultiplier;
     public float sensitivity;
     public float maxAngle = 45;
-     Camera cam;
+    public Camera cam { get; private set; }
     bool running = false;
 
     Vector3 velocity;
